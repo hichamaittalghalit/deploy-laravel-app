@@ -1,1 +1,34 @@
+version: "3.8"
 
+services:
+
+      # PHP Service
+      php:
+          build:
+              context: .
+              target: php
+              args:
+                  - APP_ENV=${APP_ENV}
+          environment:
+              - APP_ENV=${APP_ENV}
+              - CONTAINER_ROLE: app
+          working_dir: /var/www
+          volumes:
+              - ./:/var/www
+          ports:
+              - 8000:80
+          depends_on:
+              - mysql
+
+      # MYSQL Service
+      mysq:
+          image: ${MYSQL_VERSION}
+          ports:
+              - ${MYSQL_PORT}:3306
+          evironment:
+              - MYSQL_DATABASE=${MYSQL_DATABASE}
+              - MYSQL_USER=${MYSQL_USER}
+              - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+              - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+          volumes:
+              - ${DATA_PATH_HOST}/mysql:/var/lib/mysql
