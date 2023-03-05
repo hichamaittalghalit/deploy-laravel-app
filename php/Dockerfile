@@ -2,9 +2,8 @@ ARG PHP_VERSION
 FROM php:${PHP_VERSION}
 
 
-
-
-
+RUN apt-get update -y
+RUN apt-get install -y unzip libpq-dev libcurl4-gnutls-dev
 
 
 
@@ -121,3 +120,8 @@ RUN if [ ${INSTALL_MEMCACHED} = true ]; then \
     echo '' | pecl -q install memcached; \
     && docker-php-ext-enable memcached \
 ;fi
+
+
+
+WORKDIR /var/www
+COPY . .

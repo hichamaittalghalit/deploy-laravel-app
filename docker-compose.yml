@@ -18,7 +18,6 @@ services:
   php:
     build:
       context: ./php
-      target: php
       args:
         - PHP_VERSION=${PHP_VERSION}
         - PHP_INSTALL_BCMATH=${PHP_INSTALL_BCMATH}
