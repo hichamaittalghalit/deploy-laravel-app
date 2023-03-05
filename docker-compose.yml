@@ -7,8 +7,6 @@ networks:
 volumes:
   mysql:
     driver: ${VOLUMES_DRIVER}
-  mssql:
-    driver: ${VOLUMES_DRIVER}
   memcached:
     driver: ${VOLUMES_DRIVER}
   redis:
@@ -22,7 +20,6 @@ services:
       context: ./php
       target: php
       args:
-        - APP_ENV=${APP_ENV}
         - PHP_VERSION=${PHP_VERSION}
         - PHP_INSTALL_BCMATH=${PHP_INSTALL_BCMATH}
         - PHP_INSTALL_MYSQLI=${PHP_INSTALL_MYSQLI}
@@ -33,12 +30,9 @@ services:
         - PHP_INSTALL_IMAGE_OPTIMIZERS=${PHP_INSTALL_IMAGE_OPTIMIZERS}
         - PHP_INSTALL_PHPREDIS=${PHP_INSTALL_PHPREDIS}
         - PHP_INSTALL_MEMCACHED=${PHP_INSTALL_MEMCACHED}
-    environment:
-      - APP_ENV=${APP_ENV}
-      - CONTAINER_ROLE: app
     working_dir: /var/www
     volumes:
-      - ./:/var/www
+      - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}${APP_CODE_CONTAINER_FLAG}
     ports:
       - 9000
     depends_on:
