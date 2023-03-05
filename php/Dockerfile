@@ -125,5 +125,5 @@ RUN if [ ${INSTALL_MEMCACHED} = true ]; then \
 WORKDIR /var/www
 
 COPY . .
-s
+
 EXPOSE 9000
