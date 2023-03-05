@@ -31,6 +31,7 @@ services:
         - PHP_INSTALL_PHPREDIS=${PHP_INSTALL_PHPREDIS}
         - PHP_INSTALL_MEMCACHED=${PHP_INSTALL_MEMCACHED}
     working_dir: /var/www
+    container_name: php
     volumes:
       - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}${APP_CODE_CONTAINER_FLAG}
     ports:
@@ -46,6 +47,7 @@ services:
       context: ./mysql
       args:
         - MYSQL_VERSION=${MYSQL_VERSION}
+    container_name: mysql
     restart: unless-stopped
     tty: true
     ports:
@@ -68,6 +70,7 @@ services:
         - PHP_UPSTREAM_CONTAINER=${NGINX_PHP_UPSTREAM_CONTAINER}
         - PHP_UPSTREAM_PORT=${NGINX_PHP_UPSTREAM_PORT}
     restart: unless-stopped
+    container_name: nginx
     volumes:
       - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}${APP_CODE_CONTAINER_FLAG}
       - ${NGINX_HOST_LOG_PATH}:/var/log/nginx
@@ -83,6 +86,7 @@ services:
   redis:
     build:
       context: ./redis
+    container_name: redis
     volumes:
       - ${DATA_PATH_HOST}/redis:/data
     ports:
