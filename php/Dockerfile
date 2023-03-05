@@ -117,7 +117,7 @@ ARG INSTALL_MEMCACHED=false
 
 RUN if [ ${INSTALL_MEMCACHED} = true ]; then \
     # Install the php memcached extension
-    echo '' | pecl -q install memcached; \
+    pecl -q install memcached \
     && docker-php-ext-enable memcached \
 ;fi
 
