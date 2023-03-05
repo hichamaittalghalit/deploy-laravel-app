@@ -81,7 +81,8 @@ services:
 
   # REDIS Service
   redis:
-    buid: ./redis
+    build:
+      context: ./redis
     volumes:
       - ${DATA_PATH_HOST}/redis:/data
     ports:
